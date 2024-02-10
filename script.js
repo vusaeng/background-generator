@@ -1,20 +1,45 @@
-var _ = require('lodash');
-
-var array = [1, 2, 3, 4, 5, 6, 7, 8];
-console.log('answer:', _.without(array, 5));
 const css = document.querySelector("h3");
-const color1 = document.querySelector(".js-color1");
-const color2 = document.querySelector(".js-color2");
+var color1 = document.querySelector(".js-color1");
+var color2 = document.querySelector(".js-color2");
 const body = document.getElementById("gradient");
+const button = document.querySelector(".js-random");
 
 function setGradient() {
   body.style.background = "linear-gradient(to right, " 
   + color1.value 
-  + ", " + color2.value 
+  + ", " 
+  + color2.value 
   + ")";
   css.textContent = body.style.background + ";";
 }
 
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+  color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+function setRandomGradient() {
+  color1 = getRandomColor();
+  document.querySelector(".js-color1").value = color1;  //color input to match randomly selected color 
+  color2 = getRandomColor();
+  document.querySelector(".js-color2").value = color2;
+  body.style.background = "linear-gradient(to right, " 
+  + color1
+  + ", " + color2 
+  + ")";
+  css.textContent = body.style.background + ";";
+}
+
+
+ 
+window.addEventListener("load", setGradient);
+
 color1.addEventListener("input", setGradient);
 
 color2.addEventListener("input", setGradient); 
+
+button.addEventListener("click", setRandomGradient);
